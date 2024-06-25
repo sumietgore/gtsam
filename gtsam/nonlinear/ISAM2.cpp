@@ -392,7 +392,42 @@ void ISAM2::removeVariables(const KeySet& unusedKeys) {
   }
 }
 
-/* ************************************************************************* */
+// from line 395 of ISAM2.cpp
+void ISAM2::backup(){
+variableIndex_bkq_ = variableIndex_;
+theta_bkq_ = theta_;
+delta_bkq_ = delta_;
+deltaNewton_bkq_ = deltaNewton_;
+RgProd_bkq_ = RgProd_;
+nonlinearFactors_bkq_ = nonlinearFactors_;
+fixedVariables_bkq_ = fixedVariables_;
+update_count_bkq_ = update_count_;
+deltaReplacedMask_bkq_ = deltaReplacedMask_;
+linearFactors_bkq_ = linearFactors_;
+doglegDelta_bkq_ = doglegDelta_;
+params_bkq_ = params_;
+// nodes_bkq_ = nodes_;
+// roots_bkq_ = roots_;
+}
+
+void ISAM2::recover(){
+variableIndex_ = variableIndex_bkq_;
+theta_ = theta_bkq_;
+delta_ = delta_bkq_;
+deltaNewton_ = deltaNewton_bkq_;
+RgProd_ = RgProd_bkq_;
+nonlinearFactors_ = nonlinearFactors_bkq_;
+fixedVariables_ = fixedVariables_bkq_;
+update_count_ = update_count_bkq_;
+deltaReplacedMask_ = deltaReplacedMask_bkq_;
+linearFactors_ = linearFactors_bkq_;
+doglegDelta_ = doglegDelta_bkq_;
+params_ = params_bkq_;
+// nodes_ = nodes_bkq_;
+// roots_ = roots_bkq_;
+}
+// to line 427 of ISAM2.cpp
+
 ISAM2Result ISAM2::update(
     const NonlinearFactorGraph& newFactors, const Values& newTheta,
     const FactorIndices& removeFactorIndices,
